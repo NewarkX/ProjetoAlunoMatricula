@@ -33,18 +33,18 @@ public class DisciplinaService {
         return result.get();
     }
 
-    public Disciplina save(Disciplina Disciplina){
+    public Disciplina save(Disciplina disciplina){
         try {
-            return repository.save(Disciplina);
+            return repository.save(disciplina);
         }catch (Exception e){
             throw new RuntimeException("Falha ao salvar Disciplina");
         }
     }
 
-    public Disciplina update(Disciplina Disciplina){
+    public Disciplina update(Disciplina disciplina){
 
             try {
-                return repository.save(Disciplina);
+                return repository.save(disciplina);
             }catch (Exception e){
                 throw new RuntimeException("Falha ao atualizar");
             }

@@ -10,22 +10,22 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(path = "/apirest/administrador" )
+@RequestMapping(path = "/apirest/administradores" )
 public class AdministradorController {
 
     @Autowired
     private AdministradorService AdministradorService;
 
-    @GetMapping
-    public ResponseEntity getAll(){
-        return ResponseEntity.status(HttpStatus.OK).body(AdministradorService.findAll());
-    }
-
 //    @GetMapping
-//    public ResponseEntity getAll(@RequestParam(name = "page",defaultValue = "0",required = false) int page,
-//                                      @RequestParam(name = "size",defaultValue = "10",required = false) int size){
-//        return ResponseEntity.status(HttpStatus.OK).body(AdministradorService.findAll(page,size));
+//    public ResponseEntity get(){
+//        return ResponseEntity.status(HttpStatus.OK).body(AdministradorService.findAll());
 //    }
+
+    @GetMapping
+    public ResponseEntity getAll(@RequestParam(name = "page",defaultValue = "0",required = false) int page,
+                                      @RequestParam(name = "size",defaultValue = "10",required = false) int size){
+        return ResponseEntity.status(HttpStatus.OK).body(AdministradorService.findAll(page,size));
+   }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity getOne(@PathVariable("id") Long id){
@@ -33,16 +33,16 @@ public class AdministradorController {
     }
 
     @PostMapping
-    public ResponseEntity save(@Valid @RequestBody Administrador Administrador){
-        Administrador.setId(null);
-        AdministradorService.save(Administrador);
-        return ResponseEntity.status(HttpStatus.CREATED).body(Administrador);
+    public ResponseEntity save(@Valid @RequestBody Administrador administrador){
+        administrador.setId(null);
+        AdministradorService.save(administrador);
+        return ResponseEntity.status(HttpStatus.CREATED).body(administrador);
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity update(@Valid @RequestBody Administrador Administrador,@PathVariable("id") Long id){
-        Administrador.setId(id);
-        AdministradorService.update(Administrador);
+    public ResponseEntity update(@Valid @RequestBody Administrador administrador,@PathVariable("id") Long id){
+        administrador.setId(id);
+        AdministradorService.update(administrador);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 

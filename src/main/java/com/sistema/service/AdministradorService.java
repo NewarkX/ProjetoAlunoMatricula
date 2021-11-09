@@ -33,18 +33,18 @@ public class AdministradorService {
         return result.get();
     }
 
-    public Administrador save(Administrador Administrador){
+    public Administrador save(Administrador administrador){
         try {
-            return repository.save(Administrador);
+            return repository.save(administrador);
         }catch (Exception e){
             throw new RuntimeException("Falha ao salvar Administrador");
         }
     }
 
-    public Administrador update(Administrador Administrador){
+    public Administrador update(Administrador administrador){
 
             try {
-                return repository.save(Administrador);
+                return repository.save(administrador);
             }catch (Exception e){
                 throw new RuntimeException("Falha ao atualizar");
             }

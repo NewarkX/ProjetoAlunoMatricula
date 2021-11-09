@@ -35,18 +35,18 @@ public class MatriculaService {
         return result.get();
     }
 
-    public Matricula save(Matricula Matricula){
+    public Matricula save(Matricula matricula){
         try {
-            return repository.save(Matricula);
+            return repository.save(matricula);
         }catch (Exception e){
             throw new RuntimeException("Falha ao salvar Matricula");
         }
     }
 
-    public Matricula update(Matricula Matricula){
+    public Matricula update(Matricula matricula){
 
             try {
-                return repository.save(Matricula);
+                return repository.save(matricula);
             }catch (Exception e){
                 throw new RuntimeException("Falha ao atualizar");
             }

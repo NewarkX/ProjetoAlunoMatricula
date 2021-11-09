@@ -10,22 +10,22 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(path = "/apirest/aluno" )
+@RequestMapping(path = "/apirest/alunos" )
 public class AlunoController {
 
     @Autowired
     private AlunoService alunoService;
 
-    @GetMapping
-    public ResponseEntity getAll(){
-        return ResponseEntity.status(HttpStatus.OK).body(alunoService.findAll());
-    }
-
 //    @GetMapping
-//    public ResponseEntity getAll(@RequestParam(name = "page",defaultValue = "0",required = false) int page,
-//                                      @RequestParam(name = "size",defaultValue = "10",required = false) int size){
-//        return ResponseEntity.status(HttpStatus.OK).body(alunoService.findAll(page,size));
+//    public ResponseEntity get(){
+//        return ResponseEntity.status(HttpStatus.OK).body(alunoService.findAll());
 //    }
+
+    @GetMapping
+    public ResponseEntity getAll(@RequestParam(name = "page",defaultValue = "0",required = false) int page,
+                                      @RequestParam(name = "size",defaultValue = "10",required = false) int size){
+        return ResponseEntity.status(HttpStatus.OK).body(alunoService.findAll(page,size));
+    }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity getOne(@PathVariable("id") Long id){

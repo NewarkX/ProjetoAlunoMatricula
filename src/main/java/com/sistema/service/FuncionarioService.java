@@ -33,21 +33,39 @@ public class FuncionarioService {
         return result.get();
     }
 
-    public Funcionario save(Funcionario Funcionario){
+    public Funcionario save(Funcionario funcionario){
         try {
-            return repository.save(Funcionario);
+            return repository.save(funcionario);
         }catch (Exception e){
             throw new RuntimeException("Falha ao salvar Funcionario");
         }
     }
 
-    public Funcionario update(Funcionario Funcionario){
+    public Funcionario update(Funcionario funcionario,String senhaAtual,String novaSenha, String confirmarNovaSenha){
+            //verufuca se fyncionario ja existe
+            Funcionario obj = findById(funcionario.getId());
+            //verifica alteracao da senha
+            alterarSenha(obj,senhaAtual,novaSenha,confirmarNovaSenha);
 
             try {
-                return repository.save(Funcionario);
+                funcionario.setCpf(obj.getCpf());
+                funcionario.setSenha(obj.getSenha());
+                return repository.save(funcionario);
             }catch (Exception e){
                 throw new RuntimeException("Falha ao atualizar");
             }
+    }
+
+    private void alterarSenha(Funcionario obj,String senhaAtual,String novaSenha, String confirmarNovaSenha){
+        if(!senhaAtual.isBlank() && novaSenha.isBlank() && confirmarNovaSenha.isBlank()){
+            if(!senhaAtual.equals(obj.getSenha())){
+                throw new RuntimeException("Senha atual está incorreta");
+            }
+            if(!novaSenha.equals(confirmarNovaSenha)){
+                throw new RuntimeException(("Nova senha e confirmar nova senha não conferem"));
+            }
+            obj.setSenha(novaSenha);
+        }
     }
 
     public void delete(Long id){
@@ -58,5 +76,7 @@ public class FuncionarioService {
             throw new RuntimeException("Falha ao atualizar");
         }
     }
+
+
 
 }

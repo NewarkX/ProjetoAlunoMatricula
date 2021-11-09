@@ -10,22 +10,22 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(path = "/apirest/matricula" )
+@RequestMapping(path = "/apirest/matriculas" )
 public class MatriculaController {
 
     @Autowired
     private MatriculaService MatriculaService;
 
-    @GetMapping
-    public ResponseEntity getAll(){
-        return ResponseEntity.status(HttpStatus.OK).body(MatriculaService.findAll());
-    }
-
 //    @GetMapping
-//    public ResponseEntity getAll(@RequestParam(name = "page",defaultValue = "0",required = false) int page,
-//                                      @RequestParam(name = "size",defaultValue = "10",required = false) int size){
-//        return ResponseEntity.status(HttpStatus.OK).body(MatriculaService.findAll(page,size));
+//    public ResponseEntity getAll(){
+//        return ResponseEntity.status(HttpStatus.OK).body(MatriculaService.findAll());
 //    }
+
+    @GetMapping
+    public ResponseEntity getAll(@RequestParam(name = "page",defaultValue = "0",required = false) int page,
+                                      @RequestParam(name = "size",defaultValue = "10",required = false) int size){
+        return ResponseEntity.status(HttpStatus.OK).body(MatriculaService.findAll(page,size));
+    }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity getOne(@PathVariable("id") Long id){
@@ -33,10 +33,10 @@ public class MatriculaController {
     }
 
     @PostMapping
-    public ResponseEntity save(@Valid @RequestBody Matricula Matricula){
-        Matricula.setId(null);
-        MatriculaService.save(Matricula);
-        return ResponseEntity.status(HttpStatus.CREATED).body(Matricula);
+    public ResponseEntity save(@Valid @RequestBody Matricula matricula){
+        matricula.setId(null);
+        MatriculaService.save(matricula);
+        return ResponseEntity.status(HttpStatus.CREATED).body(matricula);
     }
 
     @PutMapping(path = "/{id}")

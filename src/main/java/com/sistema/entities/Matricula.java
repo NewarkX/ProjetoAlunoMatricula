@@ -27,17 +27,17 @@ public class Matricula implements Serializable {
     @Enumerated(EnumType.STRING)
     private Semestre semestre;
 
-    @JsonIgnore
+
     @NotNull
     @ManyToOne
     private Funcionario funcionario;
 
-    @JsonIgnore
+
     @NotNull
     @ManyToOne
     private Aluno aluno;
 
-    @JsonIgnore
+
     @NotNull
     @ManyToOne
     private Disciplina disciplina;

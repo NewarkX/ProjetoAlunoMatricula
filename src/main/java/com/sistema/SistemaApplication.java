@@ -55,6 +55,7 @@ public class SistemaApplication implements CommandLineRunner {
 		nascimentoFuncionario.set(1992, 9, 10);
 		f1.setNascimento(nascimentoFuncionario);
 		f1.setCpf("770.698.910-08");
+		f1.setSenha("12345678");
 		funcionarioRepository.save(f1);
 
 		Administrador ad1 = new Administrador();

@@ -10,46 +10,46 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(path = "/apirest/funcionario" )
+@RequestMapping(path = "/apirest/funcionarios" )
 public class FuncionarioController {
 
     @Autowired
-    private FuncionarioService FuncionarioService;
-
-    @GetMapping
-    public ResponseEntity getAll(){
-        return ResponseEntity.status(HttpStatus.OK).body(FuncionarioService.findAll());
-    }
+    private FuncionarioService funcionarioService;
 
 //    @GetMapping
-//    public ResponseEntity getAll(@RequestParam(name = "page",defaultValue = "0",required = false) int page,
-//                                      @RequestParam(name = "size",defaultValue = "10",required = false) int size){
-//        return ResponseEntity.status(HttpStatus.OK).body(FuncionarioService.findAll(page,size));
+//    public ResponseEntity getAll(){
+//        return ResponseEntity.status(HttpStatus.OK).body(funcionarioService.findAll());
 //    }
+
+    @GetMapping
+    public ResponseEntity getAll(@RequestParam(name = "page",defaultValue = "0",required = false) int page,
+                                      @RequestParam(name = "size",defaultValue = "10",required = false) int size){
+        return ResponseEntity.status(HttpStatus.OK).body(funcionarioService.findAll(page,size));
+   }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity getOne(@PathVariable("id") Long id){
-        return ResponseEntity.ok( FuncionarioService.findById(id));
+        return ResponseEntity.ok( funcionarioService.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity save(@Valid @RequestBody Funcionario Funcionario){
-        Funcionario.setId(null);
-        FuncionarioService.save(Funcionario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(Funcionario);
+    public ResponseEntity save(@Valid @RequestBody Funcionario funcionario){
+        funcionario.setId(null);
+        funcionarioService.save(funcionario);
+        return ResponseEntity.status(HttpStatus.CREATED).body(funcionario);
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity update(@Valid @RequestBody Funcionario Funcionario,@PathVariable("id") Long id){
-        Funcionario.setId(id);
-        FuncionarioService.update(Funcionario);
+    public ResponseEntity update(@PathVariable("id") Long id,@RequestBody Funcionario funcionario){
+        funcionario.setId(id);
+        funcionarioService.update(funcionario,"","","");
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity delete(@PathVariable("id") Long id){
-        FuncionarioService.delete(id);
+        funcionarioService.delete(id);
         return ResponseEntity.ok().build();
     }
 }
