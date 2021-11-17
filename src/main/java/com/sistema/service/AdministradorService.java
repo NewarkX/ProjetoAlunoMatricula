@@ -1,6 +1,7 @@
 package com.sistema.service;
 
 import com.sistema.entities.Administrador;
+import com.sistema.exception.NotFoundException;
 import com.sistema.repositories.AdministradorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -28,7 +29,7 @@ public class AdministradorService {
     public Administrador findById(Long id){
         Optional<Administrador> result = repository.findById(id);
         if(result.isEmpty()){
-            throw new RuntimeException("Administrador não encontradA");
+            throw new NotFoundException("Administrador nao encontrado");
         }
         return result.get();
     }

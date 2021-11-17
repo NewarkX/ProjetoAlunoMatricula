@@ -1,6 +1,7 @@
 package com.sistema.service;
 
 import com.sistema.entities.Disciplina;
+import com.sistema.exception.NotFoundException;
 import com.sistema.repositories.DisciplinaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -28,7 +29,7 @@ public class DisciplinaService {
     public Disciplina findById(Long id){
         Optional<Disciplina> result = repository.findById(id);
         if(result.isEmpty()){
-            throw new RuntimeException("Disciplina não encontradA");
+            throw new NotFoundException("Disciplina nao encontrada");
         }
         return result.get();
     }

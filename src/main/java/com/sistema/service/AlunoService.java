@@ -2,6 +2,7 @@ package com.sistema.service;
 
 import com.sistema.entities.Aluno;
 import com.sistema.entities.Matricula;
+import com.sistema.exception.NotFoundException;
 import com.sistema.repositories.AlunoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -28,7 +29,7 @@ public class AlunoService {
     public Aluno findById(Long id){
         Optional<Aluno> result = repository.findById(id);
         if(result.isEmpty()){
-            throw new RuntimeException("Aluno não encontrado");
+            throw new NotFoundException("Aluno nao encontrado");
         }
         return result.get();
     }

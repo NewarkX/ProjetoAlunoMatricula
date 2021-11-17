@@ -1,12 +1,14 @@
 package com.sistema.service;
 
 import com.sistema.entities.Funcionario;
+import com.sistema.exception.NotFoundException;
 import com.sistema.repositories.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +30,7 @@ public class FuncionarioService {
     public Funcionario findById(Long id){
         Optional<Funcionario> result = repository.findById(id);
         if(result.isEmpty()){
-            throw new RuntimeException("Funcionario não encontradA");
+            throw new NotFoundException("Funcionario nao encontrado");
         }
         return result.get();
     }
@@ -52,7 +54,14 @@ public class FuncionarioService {
                 funcionario.setSenha(obj.getSenha());
                 return repository.save(funcionario);
             }catch (Exception e){
-                throw new RuntimeException("Falha ao atualizar");
+                Throwable t = e;
+                while (t.getCause() != null) {
+                    t = t.getCause();
+                    if (t instanceof ConstraintViolationException) {
+                        throw ((ConstraintViolationException) t);
+                    }
+                }
+                throw new RuntimeException("Falha ao atualizar o Funcionario.");
             }
     }
 

@@ -2,6 +2,7 @@ package com.sistema.service;
 
 import com.sistema.entities.Matricula;
 import com.sistema.entities.Matricula;
+import com.sistema.exception.NotFoundException;
 import com.sistema.repositories.MatriculaRepository;
 import com.sistema.repositories.MatriculaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class MatriculaService {
     public Matricula findById(Long id){
         Optional<Matricula> result = repository.findById(id);
         if(result.isEmpty()){
-            throw new RuntimeException("Matricula não encontrado");
+            throw new NotFoundException("Matricula nao encontrada");
         }
         return result.get();
     }
